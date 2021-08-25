@@ -13,68 +13,68 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class TestUtil extends TestBase {
-	
+
 	public void openAccordian(String accordian) {
 		WebElement element = getDriver().findElement(By.xpath("//button[contains(text(),'"+accordian+"')]/parent::div"));
 		if(element.getAttribute("aria-expanded").equals("false"))
 			element.click();
 	}
-	
+
 	public WebElement waitForElementVisible(By by) {
-		 WebDriverWait wait = new WebDriverWait(getDriver(), 20);
-         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-         return element;
+		WebDriverWait wait = new WebDriverWait(getDriver(), 20);
+		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+		return element;
 	}
-	
+
 	public List<WebElement> waitForElementsVisible(By by) {
-		 WebDriverWait wait = new WebDriverWait(getDriver(), 20);
-        List<WebElement> elements = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
-        return elements;
+		WebDriverWait wait = new WebDriverWait(getDriver(), 20);
+		List<WebElement> elements = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+		return elements;
 	}
-	
+
 	public WebElement waitForElementClickable(By by) {
-		 WebDriverWait wait = new WebDriverWait(getDriver(), 20);
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(by));
-        return element;
+		WebDriverWait wait = new WebDriverWait(getDriver(), 20);
+		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(by));
+		return element;
 	}
-	
+
 	public void clickOnElement(WebElement element) {
 		element.click();
 	}
 
 	public void uploadFile(By by)
 	{
-		WebElement element = waitForElementClickable(by);
+		WebElement element = getDriver().findElement(by);
 		element.sendKeys(System.getProperty("user.dir")+"\\ProfilePic.jpg");
 	}
-	
-	public String getRandomString() {
-	        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	        StringBuilder salt = new StringBuilder();
-	        Random rnd = new Random();
-	        while (salt.length() < 6) { // length of the random string.
-	            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
-	            salt.append(SALTCHARS.charAt(index));
-	        }
-	        String saltStr = salt.toString();
-	        return saltStr;
 
-	    
+	public String getRandomString() {
+		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		StringBuilder salt = new StringBuilder();
+		Random rnd = new Random();
+		while (salt.length() < 6) { // length of the random string.
+			int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+			salt.append(SALTCHARS.charAt(index));
+		}
+		String saltStr = salt.toString();
+		return saltStr;
+
+
 	}
-	
+
 	public void selectFromDropdownByText(By by, String text) {
 		Select select = new Select(waitForElementVisible(by));
 		select.selectByVisibleText(text);
 	}
-	
+
 	public void verifyMessageOnScreen(By by, String msg) throws InterruptedException {
 		Thread.sleep(1000);
 		List<String> messages = waitForElementsVisible(by).stream().map(element->element.getText()).collect(Collectors.toList());
 		Assert.assertTrue(messages.contains(msg),"No such alert message found - "+msg);
 		System.out.println("Mesages - "+messages);
-		
+
 	}
-	
+
 	public void clickRequiredDay(By by, String day)
 	{
 		List<WebElement> days = waitForElementsVisible(by);
@@ -102,12 +102,12 @@ public class TestUtil extends TestBase {
 		break;
 		}
 	}
-	
+
 	public List<WebElement> findElements(By by) {
 		List<WebElement> elements = getDriver().findElements(by);
 		return elements;
 	}
-	
+
 	public String getTomorrowDay()
 	{
 		Calendar calendar = Calendar.getInstance();
@@ -118,5 +118,19 @@ public class TestUtil extends TestBase {
 		day = day > 6 ? 0 : day;
 		return daysOfWeek[day];
 	}
+
+	public void waitForTextToBe(By by,String text) {
+		WebDriverWait wait = new WebDriverWait(getDriver(), 20);
+		wait.until(ExpectedConditions.textToBe(by, text));
+
+	}
 	
+	public String toTitleCase(String text) {
+		StringBuffer resultPlaceHolder = new StringBuffer(text.length());
+		resultPlaceHolder.append(text.substring(0, 1)
+                .toUpperCase())
+                .append(text.substring(1)
+                .toLowerCase());
+		return resultPlaceHolder.toString();
+	}
 }

@@ -35,6 +35,7 @@ And User clicks on Proceed
 Then patient should get deleted
 
 
+
 @AUTO_TC_006 @Web
 Scenario: Create a new patient and assign an aide with clock in and clock out
 Given User is on Home Page
@@ -50,6 +51,7 @@ Then User should be able to enter below Clockin and Clocout Time
 |Accordian               |Day     |ClockIn   |ClockOut  | Aide               |
 |CLOCK IN/CLOCK OUT      |Friday  |09:00 AM  |10:00 AM  |  ZWILSZ JDZMRT     |
 Then it should get added to patient schedule
+
 
 @AUTO_TC_007 @Web
 Scenario: Assign a medical aide to a patient
