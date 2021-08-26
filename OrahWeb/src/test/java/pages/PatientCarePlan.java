@@ -4,18 +4,24 @@ import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import utility.TestUtil;
 
 public class PatientCarePlan extends TestUtil {
 
 	By clockiInDays = By.cssSelector("p.day-name");
+	By saveButton = By.cssSelector("button.greenbtn");
+	public By saveAlert = By.cssSelector("[role='alertdialog']");
 
 	public void selectClockInAndClockOut(Map<String,String> details) throws InterruptedException {
 		openAccordian(details.get("Accordian"));
+		if(details.get("Accordian").contains("CLOCK IN/CLOCK OUT"))
 		clickRequiredDay(clockiInDays, details.get("Day"));
 		Thread.sleep(2000);
 		WebElement row = null;
+		WebElement aideSelect = null;
+		WebElement activitySelect = null;
 		switch(details.get("Accordian")) {
 		case ("CLOCK IN/CLOCK OUT"): 
 			row = getDriver().findElements(By.xpath("//*[@heading='CLOCK IN/CLOCK OUT']//*[contains(@class,'form-register')]//div[contains(@class,'clearfix row') and not(contains(@class,'insert'))]")).get(0);
@@ -52,7 +58,7 @@ public class PatientCarePlan extends TestUtil {
 		System.out.println("Req hrs - "+reqHrs);
 		String reqMin = reqClockIn[1];
 		String reqAmPm = reqClockIn[2];
-		
+
 		String reqClockOut[] = details.get("ClockOut").replaceAll(":", " ").split(" ");
 		String reqHrsOut = reqClockOut[0];
 		System.out.println("Req hrs - "+reqHrsOut);
@@ -90,8 +96,8 @@ public class PatientCarePlan extends TestUtil {
 			System.out.println("clock ampm - "+ampmIn.getAttribute("value"));
 			ampmIn.click();
 		}
-		
-		
+
+
 		clockOutInput.click();
 		Thread.sleep(1000);
 
@@ -124,7 +130,37 @@ public class PatientCarePlan extends TestUtil {
 			ampmOut.click();
 		}
 
+		Thread.sleep(1000);
 
+
+		aideSelect =  details.get("Accordian").contains("CLOCK IN/CLOCK OUT")?
+				row.findElement(By.xpath(".//select[@name='clockinAide']"))
+				: row.findElements(By.xpath(".//select")).get(0);
+
+		selectFromDropdownByText(aideSelect, details.get("Aide"));
+
+
+
+		if(!details.get("Accordian").contains("CLOCK IN/CLOCK OUT")) {
+			activitySelect = row.findElements(By.xpath(".//select")).get(1);
+			selectFromDropdownByText(activitySelect, details.get("Activity"));
+			
+			row.findElement(By.xpath(".//td[contains(@class,'media')]//span[@class='caret']")).click();
+			Thread.sleep(1000);
+			
+			if(details.get("Media").contains("Camera"))
+		row.findElement(By.xpath(".//li//i[contains(@class,'fa-camera')]")).click();
+			if(details.get("Media").contains("Video"))
+				row.findElement(By.xpath(".//li//i[contains(@class,'fa-video')]")).click();
+			if(details.get("Media").contains("None"))
+				row.findElement(By.xpath(".//li//a[contains(text(),'NONE')]")).click();
+			
+			row.findElement(By.xpath(".//i[contains(@class,'fa-plus')]")).click();
+		}
+
+		else 
+
+			clickOnElement(waitForElementClickable(saveButton));
 
 
 	}

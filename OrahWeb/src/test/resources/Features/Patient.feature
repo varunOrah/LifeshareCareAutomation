@@ -49,7 +49,7 @@ And User clicks on that patient name
 And User clicks on "care plan" tab
 Then User should be able to enter below Clockin and Clocout Time
 |Accordian               |Day     |ClockIn   |ClockOut  | Aide               |
-|CLOCK IN/CLOCK OUT      |Friday  |09:00 AM  |10:00 AM  |  ZWILSZ JDZMRT     |
+|CLOCK IN/CLOCK OUT      |Friday  |09:00 AM  |10:00 AM  |  New Aide    |
 Then it should get added to patient schedule
 
 
@@ -65,8 +65,8 @@ When User searches for any patient
 And User clicks on that patient name
 And User clicks on "care plan" tab
 Then User should be able to enter below Clockin and Clocout Time
-|Accordian               |Day     |ClockIn   |ClockOut  | Aide             | Activity                    |
-|MEDICAL                 |        |09:00 AM  |10:00 AM  |  ZWILSZ JDZMRT   | Before Breakfast Medication |
+|Accordian               |Day     |ClockIn   |ClockOut  | Aide             | Activity                    |Media|
+|MEDICAL                 |        |09:00 AM  |10:00 AM  |  New Aide        | Before Breakfast Medication |Camera|
 Then aide activity should get created
 
 
@@ -82,8 +82,8 @@ When User searches for any patient
 And User clicks on that patient name
 And User clicks on "care plan" tab
 Then User should be able to enter below Clockin and Clocout Time
-| Accordian                 |Day     |ClockIn   |ClockOut  | Aide               |Activity|
-| PERSONAL CARE & NUTRITION |        | 09:00 AM |10:00 AM  | ZWILSZ JDZMRT      |  See profile for list of nutritional needs and allergies  |
+| Accordian                 |Day     |ClockIn   |ClockOut  | Aide               |Activity                                                   | Media |
+| PERSONAL CARE & NUTRITION |        | 09:00 AM |10:00 AM  | New Aide           |  See profile for list of nutritional needs and allergies  | Video |
 Then aide activity should get created
 
 @AUTO_TC_009 @Web
@@ -98,8 +98,8 @@ When User searches for any patient
 And User clicks on that patient name
 And User clicks on "care plan" tab
 Then User should be able to enter below Clockin and Clocout Time
-| Accordian                 |Day     |ClockIn   |ClockOut  | Aide               |Activity|
-| CLIENT ACTIVITY           |        |09:00 AM  |10:00 AM  |  ZWILSZ JDZMRT     |  Independent  |
+| Accordian                 |Day     |ClockIn   |ClockOut  | Aide               |Activity       | Media |
+| CLIENT ACTIVITY           |        |09:00 AM  |10:00 AM  |  New Aide          |  Independent  | Video |
 Then aide activity should get created
 
 @AUTO_TC_010 @Web
@@ -114,8 +114,8 @@ When User searches for any patient
 And User clicks on that patient name
 And User clicks on "care plan" tab
 Then User should be able to enter below Clockin and Clocout Time
-| Accordian                 |Day     |ClockIn   |ClockOut  | Aide               |Activity|
-|HOMEMAKER SERVICES         |        | 09:00 AM  |10:00 AM  |  ZWILSZ JDZMRT      |  Living Areas  |
+| Accordian                 |Day     |ClockIn   |ClockOut  | Aide                 |Activity| Media |
+|HOMEMAKER SERVICES         |        | 09:00 AM  |10:00 AM  |  New Aide      |  Living Areas  | Camera |
 Then aide activity should get created
 
 @AUTO_TC_011 @Web
@@ -134,7 +134,7 @@ Then I should be able to select below aide services
 |Accordian               |TypeOfCare       |License                            | Expertise    | Activity        | AddRequest |
 |REQUESTED AIDE SERVICES |Live in,Live out |Cardiopulminary Resuscitation (CPR)|ALS,Diabeties | Cooking,Bathing | Other      |
 
-@AUTO_TC_012 @Web
+@AUTO_TC_012 @Web 
 Scenario: Add general medical information for a patient 
 Given User is on Home Page
 When User Clicks on Agency Portal	

@@ -28,4 +28,19 @@ public class AgencyHomePageSteps {
 	public void patient_should_get_deleted() throws InterruptedException {
 		agencyHomePage.verifyMessageOnScreen(agencyHomePage.saveAlert, agencyHomePage.configProp.getProperty("patientDelete"));
 	}
+	
+	
+	@When("User searches for any patient")
+	public void user_searches_for_any_patient() {
+	 agencyHomePage.enterPatientName();
+	}
+	@When("User clicks on that patient name")
+	public void user_clicks_on_that_patient_name() {
+	   agencyHomePage.clickPatientSearchResult();
+	}
+	
+	@When("User clicks on {string} tab")
+	public void user_clicks_on_tab(String tab) throws InterruptedException {
+	   agencyHomePage.clickOnHeaderTab(tab);
+	}
 }

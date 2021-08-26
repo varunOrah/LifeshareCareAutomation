@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -64,6 +65,11 @@ public class TestUtil extends TestBase {
 
 	public void selectFromDropdownByText(By by, String text) {
 		Select select = new Select(waitForElementVisible(by));
+		select.selectByVisibleText(text);
+	}
+	
+	public void selectFromDropdownByText(WebElement by, String text) {
+		Select select = new Select(by);
 		select.selectByVisibleText(text);
 	}
 
@@ -132,5 +138,15 @@ public class TestUtil extends TestBase {
                 .append(text.substring(1)
                 .toLowerCase());
 		return resultPlaceHolder.toString();
+	}
+	
+	public void waitForElementInvisible(WebElement element) {
+		WebDriverWait wait = new WebDriverWait(getDriver(), 20);
+	wait.until(ExpectedConditions.invisibilityOf(element));
+	}
+	
+	public void scrollToElement(WebElement element) {
+	      ((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+
 	}
 }

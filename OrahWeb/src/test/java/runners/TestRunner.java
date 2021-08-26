@@ -16,7 +16,7 @@ import org.testng.annotations.DataProvider;
 		 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
 		 },
 		 //tags ="@Web and not @QA",
-		 tags ="@AUTO_TC_006",
+		 tags ="@AUTO_TC_016",
  publish = true
  )
 public class TestRunner extends AbstractTestNGCucumberTests {
