@@ -1,14 +1,13 @@
 package pages;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import io.cucumber.java.en.Then;
 import utility.TestUtil;
 
 public class CreatePatientPage extends TestUtil {
@@ -185,7 +184,7 @@ public class CreatePatientPage extends TestUtil {
 		waitForElementVisible(allergy).sendKeys(details.get("Allergy"));
 		clickWaitAndAssert(waitForElementVisible(addallergyLink),configProp.getProperty("profileUpdate"));		
 	}
-	
+
 	public void addmedicationDetails(Map<String,String> details) throws InterruptedException {
 		openAccordian(details.get("Accordian"));
 		waitForElementVisible(medicineName).sendKeys(details.get("Medicine"));
@@ -194,13 +193,13 @@ public class CreatePatientPage extends TestUtil {
 		waitForElementVisible(medicinepurpose).sendKeys(details.get("Purpose"));
 		clickWaitAndAssert(waitForElementClickable(addMedicineLink),configProp.getProperty("profileUpdate"));
 	}
-	
+
 	public void delmedicationDetails(String medicine) throws InterruptedException {
 		getDriver().findElement(By.xpath("//td[contains(text(),'"+medicine+"')]/parent::tr//td//i[contains(@class,'fa-trash')]")).click();
 		clickOnElement(waitForElementClickable(popupOk));
 		verifyMessageOnScreen(saveAlert, "Deleted successfully");
 	}
-	
+
 	public void addSupplementDetails(Map<String,String> details) throws InterruptedException {
 		openAccordian(details.get("Accordian"));
 		waitForElementVisible(suppName).sendKeys(details.get("Supplement"));
@@ -214,7 +213,7 @@ public class CreatePatientPage extends TestUtil {
 		clickOnElement(waitForElementClickable(popupOk));
 		verifyMessageOnScreen(saveAlert, "Deleted successfully");
 	}
-	
+
 	public void addEmergencyContact(Map<String,String> details) throws InterruptedException {
 		openAccordian(details.get("Accordian"));
 		waitForElementVisible(contactName).sendKeys(details.get("Name"));
@@ -224,7 +223,7 @@ public class CreatePatientPage extends TestUtil {
 		waitForElementVisible(contactAddress).sendKeys(details.get("Address"));
 		clickWaitAndAssert(waitForElementClickable(contactAdd), configProp.getProperty("contactAdd"));
 	}
-	
+
 	public void addPayor(Map<String,String> details) throws InterruptedException {
 		openAccordian(details.get("Accordian"));
 		waitForElementVisible(carrier).sendKeys(details.get("Carrier"));
@@ -233,6 +232,43 @@ public class CreatePatientPage extends TestUtil {
 		clickWaitAndAssert(waitForElementClickable(addPayor), configProp.getProperty("profileUpdate"));
 	}
 
+	public void enterPatientData(Map<String,String> details) {
+		if(details.get("CareStartDate")!=null ) {
+			clickOnElement(waitForElementClickable(careStartDate));
+			clickOnElement(waitForElementsVisible(activeDates).get(0));
+		}
+
+		if(details.get("FirstName")!=null )
+		waitForElementClickable(firstName).sendKeys(details.get("FirstName"));
+
+		if(details.get("LastName")!=null )
+		waitForElementClickable(lastName).sendKeys(details.get("LastName"));
+
+		if(details.get("Address")!=null ) {
+			waitForElementClickable(address).sendKeys(details.get("Address"));
+			clickOnElement(waitForElementsVisible(autoSuggestion).get(0));
+		}
+
+		selectFromDropdownByText(phoneType,details.get("PhoneType"));
+		
+		if(details.get("PhoneNo")!=null )
+		waitForElementClickable(phNo).sendKeys(details.get("PhoneNo"));
+
+		if(details.get("BirthDate")!=null ) {	
+			clickOnElement(waitForElementClickable(dob));
+			clickOnElement(waitForElementsVisible(activeDates).get(0));
+		}
+
+		if( details.get("Pic")!=null )
+			uploadFile(patientProfilePic);
+
+		if(details.get("Gender")!=null )
+			clickOnElement(waitForElementClickable(genderMale));
+
+		savePatient();
+	}
+
+	
 }
 
 

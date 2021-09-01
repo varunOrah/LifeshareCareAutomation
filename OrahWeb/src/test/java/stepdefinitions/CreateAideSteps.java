@@ -60,4 +60,9 @@ public class CreateAideSteps {
 	public void there_should_exist_a_schedule_for_the_patient_and_aide_created_above() {
 		createAidePage.verifyScheduleExists();
 	}
+	
+	@When("user clicks on Add Aide link")
+	public void addAide() {
+		createAidePage.clickAddAide();
+	}
 }

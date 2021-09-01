@@ -138,5 +138,20 @@ public class CreatePatientSteps {
 	}
 	
 	
+	@When("User enters the below patient data")
+	public void user_enters_the_below_patient_data(io.cucumber.datatable.DataTable dataTable) {
+		dataTable.asMaps().forEach(map->{
+			createPatientPage.enterPatientData(map);
+		});
+	}
+	@Then("User should get the error message - {string}")
+	public void user_should_get_the_error_message(String msg) throws InterruptedException {
+	 createPatientPage.verifyMessageOnScreen(createPatientPage.saveAlert, msg);
+	}
+	@Then("User refreshes the page")
+	public void user_refreshes_the_page() {
+	  createPatientPage.getDriver().navigate().refresh();
+	}
+	
 	}
 
